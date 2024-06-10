@@ -1,5 +1,5 @@
 import {render, RenderPosition} from '../render';
-import {UpdateType, UserAction} from '../mock/const';
+import {UpdateType, UserAction} from '../const';
 
 import {remove} from '../framework/render';
 import {isEscapeKey} from '../utils';

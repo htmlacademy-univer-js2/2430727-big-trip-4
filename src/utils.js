@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {FilterType} from './mock/const';
+import {FilterType} from './const';
 
 const EVENT_DATE_FORMAT = 'MMM D';
 const TIME_FORMAT = 'HH:mm';
