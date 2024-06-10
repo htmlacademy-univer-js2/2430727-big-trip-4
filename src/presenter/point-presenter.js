@@ -34,6 +34,7 @@ export default class PointPresenter {
     this.#point = point;
     this.#destinations = destinations;
     this.#offers = offers;
+
     const prevPointComponent = this.#pointComponent;
     const prevEditFormComponent = this.#editFormComponent;
 
@@ -45,7 +46,7 @@ export default class PointPresenter {
     });
 
     this.#editFormComponent = new PointEditorView({
-      tripPoint: point,
+      onePoint: point,
       onSubmit: this.#handleFormSubmit,
       offers: this.#offers,
       destinations: this.#destinations,
@@ -59,7 +60,8 @@ export default class PointPresenter {
     }
 
     if (this.#mode === Mode.EDITING) {
-      replace(this.#editFormComponent, prevEditFormComponent);
+      replace(this.#pointComponent, prevEditFormComponent);
+      this.#mode = Mode.DEFAULT;
     }
 
     if (this.#mode === Mode.DEFAULT) {
@@ -78,6 +80,25 @@ export default class PointPresenter {
   resetView() {
     if (this.#mode !== Mode.DEFAULT) {
       this.#editFormComponent.reset(this.#point);
+      this.#replaceFormToPoint();
+    }
+  }
+
+  setSaving() {
+    if (this.#mode === Mode.EDITING) {
+      this.#editFormComponent.updateElement({
+        isDisabled: true,
+        isSaving: true,
+      });
+    }
+  }
+
+  setDeleting() {
+    if (this.#mode === Mode.EDITING) {
+      this.#editFormComponent.updateElement({
+        isDisabled: true,
+        isDeleting: true,
+      });
     }
   }
 
@@ -87,6 +108,23 @@ export default class PointPresenter {
     this.#mode = Mode.EDITING;
   };
 
+  setAborting() {
+    if (this.#mode === Mode.DEFAULT) {
+      this.#pointComponent.shake();
+      return;
+    }
+
+    const resetFormState = () => {
+      this.#editFormComponent.updateElement({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false,
+      });
+    };
+
+    this.#editFormComponent.shake(resetFormState);
+  }
+
   #replaceFormToPoint = () => {
     replace(this.#pointComponent, this.#editFormComponent);
     this.#mode = Mode.DEFAULT;
@@ -95,8 +133,8 @@ export default class PointPresenter {
   #escKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
-      this.#replaceFormToPoint();
       this.#editFormComponent.reset(this.#point);
+      this.#replaceFormToPoint();
       document.body.removeEventListener('keydown', this.#escKeydown);
     }
   };
@@ -113,7 +151,6 @@ export default class PointPresenter {
       isMinorUpdate ? UpdateType.MINOR : UpdateType.PATCH,
       update,
     );
-    this.#replaceFormToPoint();
     document.body.removeEventListener('keydown', this.#escKeydown);
   };
 

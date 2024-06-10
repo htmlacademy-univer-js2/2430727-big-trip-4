@@ -25,7 +25,7 @@ export default class PointsApiService extends ApiService {
 
   async updatePoint(point) {
     const response = await this._load({
-      url: `tasks/${point.id}`,
+      url: `points/${point.id}`,
       method: Method.PUT,
       body: JSON.stringify(this.#adaptToServer(point)),
       headers: new Headers({'Content-Type': 'application/json'}),
@@ -36,10 +36,33 @@ export default class PointsApiService extends ApiService {
     return parsedResponse;
   }
 
+  async addPoint(point) {
+    const response = await this._load({
+      url: 'points',
+      method: Method.POST,
+      body: JSON.stringify(this.#adaptToServer(point)),
+      headers: new Headers({'Content-Type': 'application/json'}),
+    });
+
+    const parsedResponse = await ApiService.parseResponse(response);
+
+    return parsedResponse;
+  }
+
+  async deletePoint(point) {
+    const response = await this._load({
+      url: `points/${point.id}`,
+      method: Method.DELETE,
+    });
+
+    return response;
+  }
+
   #adaptToServer(point) {
-    const adaptedPoint = {...point,
-      'date_from': new Date(point.dateFrom).toISOString(),
-      'date_to': new Date(point.dateTo).toISOString(),
+    const adaptedPoint = {
+      ...point,
+      'date_from': (point.dateFrom) ? new Date(point.dateFrom).toISOString() : new Date().toISOString,
+      'date_to': (point.dateFrom) ? new Date(point.dateTo).toISOString() : new Date().toISOString,
       'base_price': Number(point.basePrice),
       'offers': point.offersIDs
     };
