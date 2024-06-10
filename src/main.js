@@ -51,7 +51,7 @@ function handleNewTaskButtonClick() {
 filterPresenter.init();
 boardPresenter.init();
 tripPointModel.init()
-.finally(() => {
-  render(newPointButtonComponent, placeForButton);
-});
-  
+  .finally(() => {
+    render(newPointButtonComponent, placeForButton);
+  });
+
