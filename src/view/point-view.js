@@ -9,7 +9,8 @@ function createOffersTemplate(offersIDs, offers, type) {
         <span class="event__offer-title">${offer.title}</span>
         &plus;&euro;&nbsp;
         <span class="event__offer-price">${offer.price}</span>
-      </li>`).join('');
+      </li>`)
+    .join('');
 }
 
 function createTripPointTemplate(tripPoint, destinations, offers) {

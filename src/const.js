@@ -42,3 +42,4 @@ const FilterType = {
   const pointTypes = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
   
   export {pointTypes, FilterType, SortType, UserAction, UpdateType, SortTypeDescription, FilterTypeDescriptions};
+  
