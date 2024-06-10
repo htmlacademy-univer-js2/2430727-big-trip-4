@@ -1,5 +1,7 @@
 import AbstractView from '../framework/view/abstract-view';
 import { changeType } from '../utils';
+import { SortType } from '../mock/const';
+
 function createSortItemTemplate(sortType) {
   return `
   <div class="trip-sort__item  trip-sort__item--${sortType}">
@@ -8,8 +10,8 @@ function createSortItemTemplate(sortType) {
   </div>`;
 }
 
-function createSortingTemplate(sorts) {
-  const sortItemsTemplate = sorts.map((sortType) => createSortItemTemplate(sortType)).join('');
+function createSortingTemplate() {
+  const sortItemsTemplate = Object.values(SortType).map((sortType) => createSortItemTemplate(sortType)).join('');
   return (`
   <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
     ${sortItemsTemplate}
@@ -26,6 +28,6 @@ export default class SortView extends AbstractView {
   }
 
   get template() {
-    return createSortingTemplate(this.#sorts);
+    return createSortingTemplate();
   }
 }
