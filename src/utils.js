@@ -55,4 +55,4 @@ const convertToFormDate = (date) => dayjs(date).format(FORM_DATE_FORMAT);
 export {getRandomItemFromItems, getRandomPrice, getRandomId, convertToEventDateTime, convertToEventDate, convertToDateTime,
   convertToTime, capitalizeType, convertToFormDate, createIDgenerator, getRandomSliceFromItems, getItemFromItemsById,
   convertToBasicime, isEscapeKey, changeType, isTripDateBeforeToday, updatePoint, isDatesEqual, filter};
-  
+
