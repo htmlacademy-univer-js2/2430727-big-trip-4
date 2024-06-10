@@ -77,21 +77,21 @@ export default class PointPresenter {
     this.#mode = Mode.DEFAULT;
   };
 
-  #ecsKeydown = (evt) => {
+  #escKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       this.#replaceFormToPoint();
-      document.body.removeEventListener('keydown', this.#ecsKeydown);
+      document.body.removeEventListener('keydown', this.#escKeydown);
     }
   };
 
   #handleEditClick = () => {
     this.#replacePointToForm();
-    document.body.addEventListener('keydown', this.#ecsKeydown);
+    document.body.addEventListener('keydown', this.#escKeydown);
   };
 
   #handleFormSubmit = () => {
     this.#replaceFormToPoint();
-    document.body.removeEventListener('keydown', this.#ecsKeydown);
+    document.body.removeEventListener('keydown', this.#escKeydown);
   };
 }
