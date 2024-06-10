@@ -1,7 +1,8 @@
 import {render, replace, remove} from '../framework/render';
 import PointView from '../view/point-view';
 import PointEditorView from '../view/point-editor-view';
-import {isEscapeKey} from '../utils';
+import {isEscapeKey, isDatesEqual} from '../utils';
+import {UpdateType, UserAction} from '../mock/const';
 
 const Mode = {
   DEFAULT: 'DEFAULT',
@@ -49,6 +50,7 @@ export default class PointPresenter {
       offers: this.#offers,
       destinations: this.#destinations,
       onRollUpButton: this.#handleButtonClick,
+      onDeleteClick: this.#handleDeleteClick
     });
 
     if (prevPointComponent === null || prevEditFormComponent === null) {
@@ -104,8 +106,13 @@ export default class PointPresenter {
     document.body.addEventListener('keydown', this.#escKeydown);
   };
 
-  #handleFormSubmit = (point) => {
-    this.#handleDataChange(point);
+  #handleFormSubmit = (update) => {
+    const isMinorUpdate = !isDatesEqual(this.#point.dateFrom, update.dateFrom) || this.#point.basePrice !== update.basePrice;
+    this.#handleDataChange(
+      UserAction.UPDATE_POINT,
+      isMinorUpdate ? UpdateType.MINOR : UpdateType.PATCH,
+      update,
+    );
     this.#replaceFormToPoint();
     document.body.removeEventListener('keydown', this.#escKeydown);
   };
@@ -114,5 +121,13 @@ export default class PointPresenter {
     this.#editFormComponent.reset(this.#point);
     this.#replaceFormToPoint();
     document.body.removeEventListener('keydown', this.#escKeydown);
+  };
+
+  #handleDeleteClick = (point) => {
+    this.#handleDataChange(
+      UserAction.DELETE_POINT,
+      UpdateType.MINOR,
+      point
+    );
   };
 }
