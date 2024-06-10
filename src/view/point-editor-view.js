@@ -1,5 +1,5 @@
 import { convertToBasicime, getItemFromItemsById, capitalizeType } from '../utils.js';
-import {pointTypes} from '../mock/const';
+import {pointTypes} from '../const';
 import AbstractStatefulView from '../framework/view/abstract-stateful-view';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.css';

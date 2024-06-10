@@ -2,7 +2,7 @@ import {render, replace, remove} from '../framework/render';
 import PointView from '../view/point-view';
 import PointEditorView from '../view/point-editor-view';
 import {isEscapeKey, isDatesEqual} from '../utils';
-import {UpdateType, UserAction} from '../mock/const';
+import {UpdateType, UserAction} from '../const';
 
 const Mode = {
   DEFAULT: 'DEFAULT',
