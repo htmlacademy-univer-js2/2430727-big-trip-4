@@ -9,6 +9,5 @@ const boardPresenter = new BoardPresenter({boardContainer: siteMainElement});
 
 render(new NewTaskButtonView(), siteHeaderElement);
 render(new FilterView(), siteMainElement);
->>>>>>> master
 
 boardPresenter.init();
