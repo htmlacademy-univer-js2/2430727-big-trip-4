@@ -54,3 +54,4 @@ tripPointModel.init()
   .finally(() => {
     render(newPointButtonComponent, placeForButton);
   });
+  

@@ -5,11 +5,10 @@ import { isSelectedOption } from '../sort';
 function createSortItemTemplate(sortType, currentSortType) {
   return `
   <div class="trip-sort__item  trip-sort__item--${sortType}">
-    <input id="${sortType}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${sortType}" ${isSelectedOption(sortType)} ${(sortType === currentSortType ? 'checked' : '')}>
-    <label class="trip-sort__btn" for="sort-${sortType}">${SortTypeDescription[sortType]}</label>
+  <input id="${sortType}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="${sortType}" ${isSelectedOption(sortType)} ${(sortType === currentSortType ? 'checked' : '')}>
+    <label class="trip-sort__btn" for="${sortType}">${SortTypeDescription[sortType]}</label>
   </div>`;
 }
-
 function createSortingTemplate(currentSortType) {
   const sortItemsTemplate = Object.keys(SortType).map((sortType) => createSortItemTemplate(SortType[sortType], currentSortType)).join('');
   return (`
