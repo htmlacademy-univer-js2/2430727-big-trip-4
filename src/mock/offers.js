@@ -1,5 +1,5 @@
 import { getOffersByType, offersByType } from './const';
-import { getRandomSliceFromItems } from '../utils';
+import { offersByType } from './const';
 
 
 const getRandomOffersIdsByType = (type) => {
@@ -8,7 +8,6 @@ const getRandomOffersIdsByType = (type) => {
   return currentTypeRandomOffers.map((offer) => offer.id);
 };
 
-const getOfferById = (id, type) => (getOffersByType(type)
-  .find((offer) => offer.id === id));
+const getOfferById = (type, offerId)=> offersByType.find((el)=>el.type === type).offers.find((offer)=>offer.id === offerId);
 
 export {getRandomOffersIdsByType, getOfferById};
