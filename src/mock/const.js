@@ -17,7 +17,7 @@ const SortType = {
   EVENT: 'event',
   TIME: 'time',
   PRICE: 'price',
-  OFFERS: 'offers'
+  OFFER: 'offer'
 };
 
 

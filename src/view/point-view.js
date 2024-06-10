@@ -48,11 +48,10 @@ function createTripPointTemplate(tripPoint) {
 
 export default class PointView extends AbstractView {
   #tripPoint = null;
-  #handleClick = null;
   constructor({tripPoint, onClick}) {
     super();
     this.#tripPoint = tripPoint;
-    this.#handleClick = onClick;
+    this._callback.onClick = onClick;
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#clickHandler);
   }
 
@@ -62,6 +61,6 @@ export default class PointView extends AbstractView {
 
   #clickHandler = (evt) => {
     evt.preventDefault();
-    this.#handleClick();
+    this._callback.onClick();
   };
 }
