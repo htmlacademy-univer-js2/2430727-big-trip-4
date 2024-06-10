@@ -2,7 +2,6 @@ import Observable from '../framework/observable';
 import {UpdateType} from '../const';
 export default class TripPointModel extends Observable {
   #tripPoints = [];
-
   #pointsApiService = null;
   constructor ({pointsApiService}) {
     super();
@@ -40,28 +39,34 @@ export default class TripPointModel extends Observable {
     }
   }
 
-  addPoint(updateType, update) {
-    this.#tripPoints = [
-      update,
-      ...this.#tripPoints
-    ];
-
-    this._notify(updateType, update);
+  async addPoint(updateType, update) {
+    try {
+      const response = await this.#pointsApiService.addPoint(update);
+      const newPoint = this.#adaptToClient(response);
+      this.#tripPoints = [newPoint, ...this.#tripPoints];
+      this._notify(updateType, newPoint);
+    } catch(err) {
+      throw new Error('Can\'t add point');
+    }
   }
 
-  deletePoint = (updateType, update) => {
-    const index = this.#tripPoints.findIndex((point) => point.id === update.id);
-
-    this.#tripPoints = [
-      ...this.#tripPoints.slice(0, index),
-      ...this.#tripPoints.slice(index + 1),
-    ];
-
-    this._notify(updateType);
-  };
+  async deletePoint(updateType, update) {
+    const index = this.#tripPoints.findIndex((pont) => pont.id === update.id);
+    try {
+      await this.#pointsApiService.deletePoint(update);
+      this.#tripPoints = [
+        ...this.#tripPoints.slice(0, index),
+        ...this.#tripPoints.slice(index + 1),
+      ];
+      this._notify(updateType);
+    } catch (err) {
+      throw new Error('Can\'t delete point');
+    }
+  }
 
   #adaptToClient(point) {
-    const adaptedPoint = {...point,
+    const adaptedPoint = {
+      ...point,
       dateFrom: point['date_from'],
       dateTo: point['date_to'],
       offersIDs: point['offers'],

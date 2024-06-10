@@ -27,9 +27,9 @@ const FilterType = {
   };
   
   const UserAction = {
-    UPDATE_WAYPOINT: 'UPDATE_POINT',
-    ADD_WAYPOINT: 'ADD_POINT',
-    DELETE_WAYPOINT: 'DELETE_POINT',
+    UPDATE_POINT: 'UPDATE_POINT',
+    ADD_POINT: 'ADD_POINT',
+    DELETE_POINT: 'DELETE_POINT',
   };
   
   const UpdateType = {
